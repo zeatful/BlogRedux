@@ -32,6 +32,7 @@ ReactDOM.render(
     <div>
     <Switch>
       <Route exact path="/posts/new" component={PostsNew}/>
+      <Route exact path="/cookies" component={Cookies}/>
       <Route exact path="/" component={PostsIndex}/>
     </Switch>
     </div>
