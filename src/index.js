@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import promise from 'redux-promise';
 
 import reducers from './reducers';
@@ -19,23 +19,10 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
   <BrowserRouter>
     <div>
-      <Route exact path="/" component={PostsIndex}/>
-      <Route exact path="/posts/new" component={PostsNew}/>
+      <Switch>
+        <Route path="/posts/new" component={PostsNew}/>
+        <Route exact path="/" component={PostsIndex}/>
+      </Switch>
     </div>
   </BrowserRouter>
 </Provider>, document.querySelector('.container'));
-
-/* Alternative using switch component, must order most specific to least specific path
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-  <BrowserRouter>
-    <div>
-    <Switch>
-      <Route exact path="/posts/new" component={PostsNew}/>
-      <Route exact path="/cookies" component={Cookies}/>
-      <Route exact path="/" component={PostsIndex}/>
-    </Switch>
-    </div>
-  </BrowserRouter>
-</Provider>, document.querySelector('.container'));
-*/
