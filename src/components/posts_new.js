@@ -1,8 +1,24 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {createPost} from '../actions';
+
+const FIELDS = {
+  title: {
+    type: 'input',
+    label: 'Title for Post'
+  },
+  categories: {
+    type: 'input',
+    label: 'Enter some categories'
+  },
+  content: {
+    type: 'textarea',
+    label: 'Post Contents'
+  }
+};
 
 // Field component only knows how to interact with Redux to handle
 // actionCreaters and state it, it does not know how to render itself
@@ -51,18 +67,15 @@ class PostsNew extends Component {
 }
 
 function validate(values) {
-  // console.log(values) -> { title: 'asdf', categories: 'asdf', content: 'asdf'}
   const errors = {};
+
   // validate the inputs from the 'values' object
-  if (!values.title) {
-    errors.title = 'Enter a title!';
-  }
-  if (!values.categories) {
-    errors.categories = 'Enter a category!';
-  }
-  if (!values.content) {
-    errors.content = 'Enter some content!';
-  }
+  _.each(FIELDS, (type, field) => {
+    if (!values[field]) {
+      errors[field] = `Enter a ${field}`;
+    }
+  });
+
   // errors === {} then valid, otherwise invalid
   return errors;
 }
